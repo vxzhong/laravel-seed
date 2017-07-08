@@ -11,20 +11,34 @@ do
     key="$1"
 
     case $key in
-        g)
-            shift
-            php artisan ide-helper:generate
-            ;;
         i)
             shift
             composer install
+            if [[ ! -f .env ]]; then
+                cp -vf .env.example .env
+            fi
             php artisan key:generate
+            ;;
+        s)
+            shift
+            php artisan serve
             ;;
         m)
             shift
+            model=App\\Models\\$1
+            shift
+            php artisan make:model $model $@
+            shift $#
+            ;;
+        hg)
+            shift
+            php artisan ide-helper:generate
+            ;;
+        ht)
+            shift
             php artisan ide-helper:meta
             ;;
-        mwr)
+        hm)
             shift
             model=
             for i in "$@"
@@ -33,10 +47,6 @@ do
             done
             php artisan ide-helper:models -W -R $model
             shift $#
-            ;;
-        s)
-            shift
-            php artisan serve
             ;;
     esac
 done
