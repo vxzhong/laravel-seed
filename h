@@ -48,5 +48,10 @@ do
             php artisan ide-helper:models -W -R $model
             shift $#
             ;;
+        *)
+            shift
+            echo $key "doesn't exist!"
+            exit -1
+            ;;
     esac
 done
