@@ -11,15 +11,20 @@ do
     key="$1"
 
     case $key in
-        -g)
+        g)
             shift
             php artisan ide-helper:generate
-        ;;
-        -m)
+            ;;
+        i)
+            shift
+            composer install
+            php artisan key:generate
+            ;;
+        m)
             shift
             php artisan ide-helper:meta
-        ;;
-        -mwr)
+            ;;
+        mwr)
             shift
             model=
             for i in "$@"
@@ -28,10 +33,10 @@ do
             done
             php artisan ide-helper:models -W -R $model
             shift $#
-        ;;
-        -s)
+            ;;
+        s)
             shift
             php artisan serve
-        ;;
+            ;;
     esac
 done
