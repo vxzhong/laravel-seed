@@ -19,16 +19,26 @@ do
             fi
             php artisan key:generate
             ;;
-        s)
+        a)
             shift
-            php artisan serve
+            php artisan $@
+            shift $#
             ;;
-        m)
+        ag)
+            shift
+            php artisan migrate
+            shift $#
+            ;;
+        am)
             shift
             model=App\\Models\\$1
             shift
             php artisan make:model $model $@
             shift $#
+            ;;
+        s)
+            shift
+            php artisan serve
             ;;
         hg)
             shift
